@@ -1,5 +1,6 @@
 package dao;
 
+import models.Beneficiary;
 import models.Charity;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,13 +47,6 @@ public class Sql2oCharityDaoTest {
         assertEquals(2,charityDao.getAllCharitiesForDonor(1).size());
     }
 
-//    @Test
-//    public void findById() {
-//    }
-//
-//    @Test
-//    public void update() {
-//    }
 
     @Test
     public void deleteById() {
@@ -74,7 +68,7 @@ public class Sql2oCharityDaoTest {
 
     public Charity setupCharity(){
         String description = "To improve the life  opportunities of youth aged 10-24 through strategic empowerment for sustainable development";
-        Charity charity = new Charity(description, "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/586357/GD2.pdf","https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60",1,1,1);
+        Charity charity = new Charity(description, "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/586357/GD2.pdf","https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60",1,1);
         charityDao.add(charity);
         return charity;
     }
@@ -84,7 +78,7 @@ public class Sql2oCharityDaoTest {
         String trustDeed = "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/586357/GD2.pdf";
         String image = "https://images.unsplash.com/photo-1593642634367-d91a135587b5?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60";
 
-        Charity charity = new Charity(description, trustDeed,image,2,1,2);
+        Charity charity = new Charity(description, trustDeed,image,2,1);
         charityDao.add(charity);
         return charity;
     }

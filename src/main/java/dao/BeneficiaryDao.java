@@ -11,6 +11,7 @@ public interface BeneficiaryDao {
 
     //read
     List<Beneficiary> getAll();
+    List<Beneficiary> getAllBeneficiariesForACharity(int charityId);
 
     Beneficiary findById(int id);
 

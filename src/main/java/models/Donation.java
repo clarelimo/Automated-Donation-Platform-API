@@ -99,18 +99,31 @@ public class Donation {
             System.out.println("Error:::: "+ err);
         }
     }
+
     public static List<Donation> getDonors(){
         try(Connection con= DB.sql2o.open()){
             String getAll= "SELECT * FROM donors";
             return con.createQuery(getAll).executeAndFetch(Donation.class);
         }
     }
+
     public static List<Donation> getDonationsByUserId(int userid){
         try(Connection con= DB.sql2o.open()){
             String getAll = "SELECT * FROM donors WHERE userid=:userid";
             return con.createQuery(getAll).addParameter("userid", userid).executeAndFetch(Donation.class);
         }
     }
+
+    public  static  List<Donation> getAllNonAnonymousDonorsForACharity(int charityId){
+        try (Connection con = DB.sql2o.open()) {
+            return con.createQuery("SELECT * FROM donors WHERE charityId = :charityId AND anonymity = :anonymity")
+                    .addParameter("charityId", charityId)
+                    .addParameter("anonymity", false)
+                    .executeAndFetch(Donation.class);
+        }
+    }
+
+
     public static Donation findDonorById(int id){
         try(Connection con= DB.sql2o.open()) {
             String getById = "select * from donors where id=:id";
