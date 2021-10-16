@@ -10,11 +10,11 @@ public interface CharityDao {
 
     //read
     List<Charity> getAll();
-    List<Charity> getAllCharitiesForDonor(int salesId);
+    List<Charity> getAllCharitiesForDonor(int donorId);
     Charity findById(int id);
 
     //update
-    void update(String description, String trustDeed, String image);
+    void update(int id,String description, String trustDeed, String image);
 
     //delete
     void deleteById(int id);
