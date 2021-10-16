@@ -55,6 +55,17 @@ public class Sql2oUsersDao implements UsersDao {
     }
 
     @Override
+    public User getUser(String email, String password, String categories) {
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM users WHERE email = :email AND password = :password AND categories = :categories")
+                    .addParameter("email", email)
+                    .addParameter("password", password)
+                    .addParameter("categories", categories)
+                    .executeAndFetchFirst(User.class);
+        }
+    }
+
+    @Override
     public void deleteById(int id) {
         String sql = "DELETE from users WHERE id = :id";
         try  (Connection conn = sql2o.open()){

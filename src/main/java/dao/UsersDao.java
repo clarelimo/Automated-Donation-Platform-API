@@ -13,6 +13,7 @@ public interface UsersDao {
 
     User findById(int id);
     User findByEmail(String email);
+    User getUser(String email, String password, String categories);
 
     //delete
     void deleteById(int id);

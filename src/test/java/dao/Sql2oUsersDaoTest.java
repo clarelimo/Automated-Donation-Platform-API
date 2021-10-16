@@ -53,6 +53,14 @@ public class Sql2oUsersDaoTest {
         assertEquals("Clare",usersDao.findByEmail(user.getEmail()).getName());
     }
 
+
+    @Test
+    public void getUserByCategory() {
+        User user = setupUser();
+        User anotherUser = setupUser();
+        assertEquals("charity",usersDao.getUser(user.getEmail(),user.getPassword(),user.getCategories()).getCategories());
+    }
+
     @Test
     public void deleteById() {
         User user = setupUser();
