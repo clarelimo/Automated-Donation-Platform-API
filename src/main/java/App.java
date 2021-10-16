@@ -27,14 +27,14 @@ public class App {
         conn = DB.sql2o.open();
 
         get("/", "application/json", (req, res) -> {
-            System.out.println(usersDao.getAll());
+            System.out.println(beneficiaryDao.getAll());
 
-            if(usersDao.getAll().size() > 0){
-                return gson.toJson(usersDao.getAll());
+            if(beneficiaryDao.getAll().size() > 0){
+                return gson.toJson(beneficiaryDao.getAll());
             }
 
             else {
-                return "{\"message\":\"I'm sorry, but no users are currently listed in the database.\"}";
+                return "{\"message\":\"I'm sorry, but no beneficiaries are currently listed in the database.\"}";
             }
         });
 
