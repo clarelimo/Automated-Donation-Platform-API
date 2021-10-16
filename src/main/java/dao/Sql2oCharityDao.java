@@ -17,7 +17,7 @@ public class Sql2oCharityDao implements CharityDao{
 
     @Override
     public void add(Charity charity) {
-        String sql = "INSERT INTO charities (userid,donorid,beneficiaryid,description,trustdeed,image) VALUES(:userId,:donorId,:beneficiaryId, :description,:trustdeed,:image)";
+        String sql = "INSERT INTO charities (userid,donorid,beneficiaryid,description,trustdeed,image) VALUES(:userId,:donorId,:beneficiaryId, :description,:trustDeed,:image)";
         try (Connection conn = sql2o.open()){
             int id = (int) conn.createQuery(sql,true)
                     .bind(charity)
@@ -40,8 +40,8 @@ public class Sql2oCharityDao implements CharityDao{
     @Override
     public List<Charity> getAllCharitiesForDonor(int donorId) {
         try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM charities WHERE donorid = :donorId")
-                    .addParameter("donorid", donorId)
+            return con.createQuery("SELECT * FROM charities WHERE donorId = :donorId")
+                    .addParameter("donorId", donorId)
                     .executeAndFetch(Charity.class);
         }
     }
