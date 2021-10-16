@@ -31,10 +31,6 @@ public class Sql2oCharityDaoTest {
         System.out.println("connection closed");
     }
 
-//    @Test
-//    public void add() {
-//    }
-
     @Test
     public void getAll() {
         Charity charity = setupCharity();
