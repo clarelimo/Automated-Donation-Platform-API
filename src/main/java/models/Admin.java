@@ -93,6 +93,13 @@ public class Admin {
         }
 
     }
+    public Charity getCharityById(int id){
+        try(Connection con= DB.sql2o.open()){
+            String getCharityById = "Select * from charities where id=:id";
+            return con.createQuery(getCharityById).addParameter("id",id).executeAndFetchFirst(Charity.class);
+        }
+    }
+
     public static void clearAll(){
         try(Connection con= DB.sql2o.open()){
             String delete = "DELETE FROM admin *";

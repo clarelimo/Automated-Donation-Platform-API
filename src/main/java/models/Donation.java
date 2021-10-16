@@ -105,6 +105,12 @@ public class Donation {
             return con.createQuery(getAll).executeAndFetch(Donation.class);
         }
     }
+    public static List<Donation> getDonationsByUserId(int userid){
+        try(Connection con= DB.sql2o.open()){
+            String getAll = "SELECT * FROM donors WHERE userid=:userid";
+            return con.createQuery(getAll).addParameter("userid", userid).executeAndFetch(Donation.class);
+        }
+    }
     public static Donation findDonorById(int id){
         try(Connection con= DB.sql2o.open()) {
             String getById = "select * from donors where id=:id";
@@ -112,6 +118,18 @@ public class Donation {
         }
     }
 
+    public static List<Donation> findDonationByAnonymity(){
+        try(Connection con = DB.sql2o.open()){
+            String getByAnonymity= "select * from donors WHERE anonymity=:anonymity";
+            return  con.createQuery(getByAnonymity).addParameter("anonymity",false).executeAndFetch(Donation.class);
+        }
+    }
+    public static List<Donation> findDonationByNonAnonymity(){
+        try(Connection con = DB.sql2o.open()){
+            String getByAnonymity= "select * from donors WHERE anonymity=:anonymity";
+            return  con.createQuery(getByAnonymity).addParameter("anonymity",true).executeAndFetch(Donation.class);
+        }
+    }
 
     public static void deleteById(int id){
         try(Connection con= DB.sql2o.open()){
@@ -120,6 +138,20 @@ public class Donation {
         }
 
     }
+    public List<Charity> getAllCharities(){
+        try(Connection con= DB.sql2o.open()){
+            String getallCharities = "Select * from charities";
+          return   con.createQuery(getallCharities).executeAndFetch(Charity.class);
+        }
+
+    }
+    public Charity getCharityById(int id){
+        try(Connection con= DB.sql2o.open()){
+            String getCharityById = "Select * from charities where id=:id";
+            return con.createQuery(getCharityById).addParameter("id",id).executeAndFetchFirst(Charity.class);
+        }
+    }
+
     public static void clearAll(){
         try(Connection con= DB.sql2o.open()){
             String delete = "DELETE FROM donors *";

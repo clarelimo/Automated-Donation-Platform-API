@@ -1,6 +1,8 @@
 package models;
 
 import dao.DB;
+import dao.DatabaseRule;
+import dao.Sql2oCharityDao;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +18,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DonationTest {
     Donation testDonation;
+    private static Sql2oCharityDao charityDao;
     @BeforeAll
     public static void beforeAll(){ //access database
         DB.sql2o= new Sql2o("jdbc:postgresql://localhost:5432/donation_platform_test","softwaredev","1234");
+        charityDao = new Sql2oCharityDao(DatabaseRule.sql2o);
     }
     @BeforeEach
     public void setUp(){// helper
@@ -51,6 +55,26 @@ class DonationTest {
     void instanceOfById(){
         Donation.findDonorById(testDonation.getId());
         assertEquals(Donation.getDonors().get(0).getId(),testDonation.getId());
+    }
+
+    @Test
+    void instanceOfByAnonymity(){
+       Donation testDonation2= new Donation(1,1,true, "monthly", new Timestamp(new Date().getTime()),"stripe");
+       testDonation2.save();
+       assertEquals(Donation.findDonationByAnonymity().size(),1);
+    }
+    @Test
+    void instanceOfByNonAnonymity(){
+       Donation testDonation2= new Donation(1,1,true, "monthly", new Timestamp(new Date().getTime()),"stripe");
+       testDonation2.save();
+       assertEquals(Donation.findDonationByNonAnonymity().size(),1);
+    }
+    @Test
+    void instanceOfAllCharityOrganizations(){
+        String description = "To improve the life  opportunities of youth aged 10-24 through strategic empowerment for sustainable development";
+        Charity charity = new Charity(description, "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/586357/GD2.pdf","https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60",1,1,1);
+        charityDao.add(charity);
+        assertEquals(testDonation.getAllCharities().size(),1);
     }
 
 }
