@@ -6,11 +6,20 @@ public class Beneficiary {
     private String name;
     private String testimony;
     private String image;
+    private  int id;
 
     public Beneficiary(String name, String testimony, String image) {
         this.name = name;
         this.testimony = testimony;
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
