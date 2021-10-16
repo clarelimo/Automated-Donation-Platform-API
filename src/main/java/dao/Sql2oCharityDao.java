@@ -1,5 +1,6 @@
 package dao;
 
+import models.Beneficiary;
 import models.Charity;
 import models.User;
 import org.sql2o.Connection;
@@ -17,7 +18,7 @@ public class Sql2oCharityDao implements CharityDao{
 
     @Override
     public void add(Charity charity) {
-        String sql = "INSERT INTO charities (userid,donorid,beneficiaryid,description,trustdeed,image) VALUES(:userId,:donorId,:beneficiaryId, :description,:trustDeed,:image)";
+        String sql = "INSERT INTO charities (userid,donorid,description,trustdeed,image) VALUES(:userId,:donorId, :description,:trustDeed,:image)";
         try (Connection conn = sql2o.open()){
             int id = (int) conn.createQuery(sql,true)
                     .bind(charity)

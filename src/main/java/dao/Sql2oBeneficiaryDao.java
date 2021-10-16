@@ -17,7 +17,7 @@ public class Sql2oBeneficiaryDao implements BeneficiaryDao {
 
     @Override
     public void add(Beneficiary beneficiary) {
-        String sql = "INSERT INTO beneficiaries (name,testimony,image) VALUES(:name,:testimony,:image)";
+        String sql = "INSERT INTO beneficiaries (name,testimony,image,charityid) VALUES(:name,:testimony,:image,:charityId)";
         try (Connection conn = sql2o.open()){
             int id = (int) conn.createQuery(sql,true)
                     .bind(beneficiary)
@@ -33,6 +33,15 @@ public class Sql2oBeneficiaryDao implements BeneficiaryDao {
     public List<Beneficiary> getAll() {
         try (Connection conn = sql2o.open()) {
             return conn.createQuery("SELECT * FROM beneficiaries")
+                    .executeAndFetch(Beneficiary.class);
+        }
+    }
+
+    @Override
+    public List<Beneficiary> getAllBeneficiariesForACharity(int charityId) {
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM beneficiaries WHERE charityId = :charityId")
+                    .addParameter("charityId", charityId)
                     .executeAndFetch(Beneficiary.class);
         }
     }

@@ -1,5 +1,6 @@
 package dao;
 
+import models.Beneficiary;
 import models.Charity;
 
 import java.util.List;

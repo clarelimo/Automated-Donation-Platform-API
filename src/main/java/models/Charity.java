@@ -8,16 +8,14 @@ public class Charity {
     private String image;
     private int userId;
     private int donorId;
-    private int beneficiaryId;
     private int id;
 
-    public Charity(String description, String trustDeed, String image, int userId, int donorId, int beneficiaryId) {
+    public Charity(String description, String trustDeed, String image, int userId, int donorId) {
         this.description = description;
         this.trustDeed = trustDeed;
         this.image = image;
         this.userId = userId;
         this.donorId = donorId;
-        this.beneficiaryId = beneficiaryId;
     }
 
     public int getId() {
@@ -68,13 +66,6 @@ public class Charity {
         this.donorId = donorId;
     }
 
-    public int getBeneficiaryId() {
-        return beneficiaryId;
-    }
-
-    public void setBeneficiaryId(int beneficiaryId) {
-        this.beneficiaryId = beneficiaryId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -83,7 +74,6 @@ public class Charity {
         Charity charity = (Charity) o;
         return userId == charity.userId &&
                 donorId == charity.donorId &&
-                beneficiaryId == charity.beneficiaryId &&
                 description.equals(charity.description) &&
                 trustDeed.equals(charity.trustDeed) &&
                 image.equals(charity.image);
@@ -91,6 +81,6 @@ public class Charity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, trustDeed, image, userId, donorId, beneficiaryId);
+        return Objects.hash(description, trustDeed, image, userId, donorId);
     }
 }

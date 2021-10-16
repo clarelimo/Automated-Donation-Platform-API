@@ -6,12 +6,23 @@ public class Beneficiary {
     private String name;
     private String testimony;
     private String image;
+    private int charityId;
+
     private  int id;
 
-    public Beneficiary(String name, String testimony, String image) {
+    public Beneficiary(String name, String testimony, String image, int charityId) {
         this.name = name;
         this.testimony = testimony;
         this.image = image;
+        this.charityId = charityId;
+    }
+
+    public int getCharityId() {
+        return charityId;
+    }
+
+    public void setCharityId(int charityId) {
+        this.charityId = charityId;
     }
 
     public int getId() {
