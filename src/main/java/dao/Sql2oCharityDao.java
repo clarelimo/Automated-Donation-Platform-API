@@ -57,7 +57,7 @@ public class Sql2oCharityDao implements CharityDao{
 
     @Override
     public void update(int id,String description, String trustDeed, String image) {
-        String sql = "UPDATE charities SET (description,trustdeed,image) = (:description,:trustdeed,:image)";
+        String sql = "UPDATE charities SET (description,trustdeed,image) = (:description,:trustDeed,:image)";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("description", description)

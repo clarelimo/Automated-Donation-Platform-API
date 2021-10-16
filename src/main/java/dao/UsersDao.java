@@ -13,7 +13,8 @@ public interface UsersDao {
 
     User findById(int id);
     User findByEmail(String email);
-    User getUser(String email, String password, String categories);
+    User getUserByCategory(String email, String password, String categories);
+    boolean authenticate(String email, String password);
 
     //delete
     void deleteById(int id);

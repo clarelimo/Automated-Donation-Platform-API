@@ -4,6 +4,7 @@ import models.User;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
+import org.mindrot.jbcrypt.*;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class Sql2oUsersDao implements UsersDao {
     }
 
     @Override
-    public User getUser(String email, String password, String categories) {
+    public User getUserByCategory(String email, String password, String categories) {
         try (Connection con = sql2o.open()) {
             return con.createQuery("SELECT * FROM users WHERE email = :email AND password = :password AND categories = :categories")
                     .addParameter("email", email)
@@ -63,6 +64,20 @@ public class Sql2oUsersDao implements UsersDao {
                     .addParameter("categories", categories)
                     .executeAndFetchFirst(User.class);
         }
+    }
+
+    @Override
+    public boolean authenticate(String email, String password) {
+        if (email.isEmpty() || password.isEmpty()) {
+            return false;
+        }
+        User user = findByEmail(email);
+        if (user == null) {
+            return false;
+        }
+        return false;
+//        String hashedPassword = BCrypt.hashpw(password, user.getSalt());
+//        return hashedPassword.equals(user.getHashedPassword());
     }
 
     @Override

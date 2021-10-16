@@ -58,7 +58,7 @@ public class Sql2oUsersDaoTest {
     public void getUserByCategory() {
         User user = setupUser();
         User anotherUser = setupUser();
-        assertEquals("charity",usersDao.getUser(user.getEmail(),user.getPassword(),user.getCategories()).getCategories());
+        assertEquals("charity",usersDao.getUserByCategory(user.getEmail(),user.getPassword(),user.getCategories()).getCategories());
     }
 
     @Test

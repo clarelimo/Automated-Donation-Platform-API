@@ -20,4 +20,5 @@ dependencies {
     implementation 'org.sql2o:sql2o:1.6.0'
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.14'
+    implementation 'org.mindrot:jbcrypt:0.4'
 }
