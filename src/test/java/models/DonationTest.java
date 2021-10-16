@@ -22,13 +22,9 @@ class DonationTest {
     private static Sql2oCharityDao charityDao;
     @BeforeAll
     public static void beforeAll(){ //access database
-        DB.sql2o= new Sql2o("jdbc:postgresql://localhost:5432/donation_platform_test","softwaredev","1234");
-        charityDao = new Sql2oCharityDao(DatabaseRule.sql2o);
-
-
-
-
+        DB.sql2o= new Sql2o("jdbc:postgresql://localhost:5432/donation_platform_test","moringa","climo");
     }
+
     @BeforeEach
     public void setUp(){// helper
        testDonation= new Donation(1,1,false, "monthly", new Timestamp(new Date().getTime()),"stripe");
