@@ -62,9 +62,8 @@ public class Sql2oCharityDao implements CharityDao{
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("description", description)
-                    .addParameter("trustdeed", trustDeed)
+                    .addParameter("trustDeed", trustDeed)
                     .addParameter("image", image)
-                    .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {
             System.out.println(ex);

@@ -53,7 +53,7 @@ public class App {
         });
 
         //get user by id
-        get("/users/:id", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("api/users/:id", "application/json", (req, res) -> { //accept a request in format JSON from an app
             int userId = Integer.parseInt(req.params("id"));
             User userToFind = usersDao.findById(userId);
             if (userToFind == null){
@@ -63,9 +63,9 @@ public class App {
         });
 
         //get user by email
-        get("/users/login/:email", "application/json", (req, res) -> { //accept a request in format JSON from an app
-            int userId = Integer.parseInt(req.params("email"));
-            User userToFind = usersDao.findById(userId);
+        get("api/users/login/:email", "application/json", (req, res) -> { //accept a request in format JSON from an app
+            String email = req.params("email");
+            User userToFind = usersDao.findByEmail(email);
             if (userToFind == null){
                 throw new ApiException(404, String.format("No user with the email: \"%s\" exists", req.params("id")));
             }
@@ -73,21 +73,6 @@ public class App {
         });
 
         //get user by category
-
-
-        //create beneficiary
-        post("api/category/login", "application/json", (req, res) -> {
-//            User user = gson.fromJson(req.body(), User.class);
-//            user = usersDao.findByEmail(user.getEmail());
-
-            String email = req.attribute("email");
-            String category = req.attribute("categories");
-            String password = req.attribute("password");
-            User user = usersDao.getUserByCategory(email,password,category);
-            res.status(201);
-            return gson.toJson(user);
-        });
-
 
 
         //create beneficiary
@@ -162,7 +147,8 @@ public class App {
         //update charity
         put("api/charity/:id", "application/json", (req, res) -> {
             Charity charity = gson.fromJson(req.body(), Charity.class);
-            charityDao.update(charity.getId(),charity.getDescription(),charity.getTrustDeed(),charity.getImage());
+            int charityId = Integer.parseInt(req.params("id"));
+            charityDao.update(charityId,charity.getDescription(),charity.getTrustDeed(),charity.getImage());
 
             res.status(201);
             return gson.toJson(charity);
