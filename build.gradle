@@ -15,9 +15,9 @@ repositories {
 
 dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.12'
-    implementation "com.sparkjava:spark-core:2.6.0"
-    implementation 'org.slf4j:slf4j-simple:1.7.21'
-    implementation 'org.sql2o:sql2o:1.5.4'
-    implementation 'com.google.code.gson:gson:2.5'
+    implementation 'com.sparkjava:spark-core:2.9.3'
+    implementation 'org.slf4j:slf4j-simple:1.7.32'
+    implementation 'org.sql2o:sql2o:1.6.0'
+    implementation 'com.google.code.gson:gson:2.8.8'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.14'
 }
