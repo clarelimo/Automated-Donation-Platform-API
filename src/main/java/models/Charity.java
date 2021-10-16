@@ -9,6 +9,7 @@ public class Charity {
     private int userId;
     private int donorId;
     private int beneficiaryId;
+    private int id;
 
     public Charity(String description, String trustDeed, String image, int userId, int donorId, int beneficiaryId) {
         this.description = description;

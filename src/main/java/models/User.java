@@ -9,6 +9,7 @@ public class User {
     private String category;
     private String phoneNumber;
     private String image;
+    private int id;
 
     public User(String name, String email, String password, String category, String phoneNumber, String image) {
         this.name = name;
@@ -65,6 +66,15 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
