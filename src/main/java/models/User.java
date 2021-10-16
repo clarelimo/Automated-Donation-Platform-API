@@ -6,17 +6,17 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String category;
-    private String phoneNumber;
+    private String categories;
+    private String phone_number;
     private String image;
     private int id;
 
-    public User(String name, String email, String password, String category, String phoneNumber, String image) {
+    public User(String name, String email, String password, String categories, String phone_number, String image) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.category = category;
-        this.phoneNumber = phoneNumber;
+        this.categories = categories;
+        this.phone_number = phone_number;
         this.image = image;
     }
 
@@ -44,20 +44,20 @@ public class User {
         this.password = password;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategories() {
+        return categories;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public String getImage() {
@@ -85,13 +85,13 @@ public class User {
         return name.equals(user.name) &&
                 email.equals(user.email) &&
                 password.equals(user.password) &&
-                category.equals(user.category) &&
-                phoneNumber.equals(user.phoneNumber) &&
+                categories.equals(user.categories) &&
+                phone_number.equals(user.phone_number) &&
                 image.equals(user.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, email, password, category, phoneNumber, image);
+        return Objects.hash(name, email, password, categories, phone_number, image);
     }
 }
