@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 
 class DonationTest {
     Donation testDonation;
@@ -49,7 +48,7 @@ class DonationTest {
     @Test
     void instanceDeleteById(){
         Donation.deleteById(Donation.getDonors().get(0).getId());
-        assertEquals(Admin.getAllCharities().size(),0);
+        assertEquals(Admin.admin_getAllCharities().size(),0);
     }
     @Test
     void instanceOfClearAll(){

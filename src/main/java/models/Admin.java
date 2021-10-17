@@ -5,27 +5,22 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Admin {
-    private int userid;
+
     private int charityid;
     private boolean approval;
     private int id;
 
 
-    public Admin(int userid, int charityid) {
-        this.userid = userid;
+    public Admin( int charityid) {
+
         this.charityid = charityid;
         this.approval = false;
     }
 
-    public int getUserid() {
-        return userid;
-    }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
 
     public int getCharityid() {
         return charityid;
@@ -48,9 +43,9 @@ public class Admin {
     }
     public void save(){
         try(Connection con = DB.sql2o.open()){//save approvals
-            String saveAdmin= "INSERT INTO admin( userid, approval ) VALUES (:userid, :approval)";
+            String saveAdmin= "INSERT INTO admin(  charityid, approval ) VALUES (:charityid,:approval)";
             this.id= (int) con.createQuery(saveAdmin, true)
-                    .addParameter("userid", this.userid)
+                    .addParameter("charityid", this.charityid)
                     .addParameter("approval", this.approval)
                     .executeUpdate()
                     .getKey();
@@ -59,15 +54,30 @@ public class Admin {
             System.out.println("Error:::: "+ err);
         }
     }
-    public static List<Admin> getAllCharities(){
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Admin admin = (Admin) o;
+        return charityid == admin.charityid && approval == admin.approval && id == admin.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(charityid, approval, id);
+    }
+
+    public static List<Admin> admin_getAllCharities(){
         try(Connection con= DB.sql2o.open()){
             String getAll= "SELECT * FROM admin";
             return con.createQuery(getAll).executeAndFetch(Admin.class);
         }
     }
-    public static Admin findCharityById(int id){
+    public static Admin admin_findCharityById(int id){
         try(Connection con= DB.sql2o.open()) {
-            String getById = "select * from admin where id=:id";
+            String getById = "select * from admin where charityid=:id";
             return con.createQuery(getById).addParameter("id",id).executeAndFetchFirst(Admin.class);
         }
     }
@@ -86,19 +96,32 @@ public class Admin {
             return con.createQuery(approved).addParameter("approval", true).executeAndFetch(Admin.class);
             }
     }
-    public static void deleteById(int id){
+    public static void deleteAdminById(int id){
         try(Connection con= DB.sql2o.open()){
-            String delete = "DELETE FROM admin WHERE id=:id";
+            String delete = "DELETE FROM admin * WHERE id=:id";
             con.createQuery(delete).addParameter("id",id).executeUpdate();
         }
 
     }
-    public Charity getCharityById(int id){
+    public static Charity getCharityById(int id){
         try(Connection con= DB.sql2o.open()){
             String getCharityById = "Select * from charities where id=:id";
             return con.createQuery(getCharityById).addParameter("id",id).executeAndFetchFirst(Charity.class);
         }
     }
+    public static void delete_user_charity(int id){
+          try (Connection con= DB.sql2o.open()){
+              String deleteCharity= "DELETE FROM users * WHERE id=:id";
+              con.createQuery(deleteCharity).addParameter("id",id).executeUpdate();
+          }
+    }
+    public static void admin_delete_charity(int id){
+        try(Connection con = DB.sql2o.open()){
+            String deleteCharity= "Delete from charities * where id = :id";
+            con.createQuery(deleteCharity).addParameter("id",id).executeUpdate();
+        }
+    }
+
 
     public static void clearAll(){
         try(Connection con= DB.sql2o.open()){

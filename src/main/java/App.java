@@ -4,10 +4,8 @@ import dao.DB;
 import dao.Sql2oBeneficiaryDao;
 import dao.Sql2oCharityDao;
 import dao.Sql2oUsersDao;
-
 import exceptions.ApiException;
 import models.*;
-import org.sql2o.Sql2o;
 import static spark.Spark.*;
 import org.sql2o.Connection;
 
@@ -51,6 +49,19 @@ public class App {
             res.status(201);
             return gson.toJson(user);
         });
+        //login user by category
+        post("api/users/login", "application/json", (req, res) -> {
+            User user = gson.fromJson(req.body(), User.class);
+
+            User userToFind = usersDao.getUserByCategory(user.getEmail(),user.getPassword(),user.getCategories());
+
+            if (userToFind == null){
+                throw new ApiException(404, String.format("Please Check your credentials"));
+            }
+
+            res.status(201);
+            return gson.toJson(userToFind);
+        });
 
         //get users
         get("api/users", "application/json", (req, res) -> { //accept a request in format JSON from an app
@@ -93,7 +104,7 @@ public class App {
         });
 
         //get all beneficiaries
-        get("api/beneficiaries", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/api/beneficiaries", "application/json", (req, res) -> { //accept a request in format JSON from an app
             res.type("application/json");
             return gson.toJson(beneficiaryDao.getAll());
         });
@@ -192,7 +203,7 @@ public class App {
            }
            return gson.toJson(Donation.getDonationsByUserId(userId));
        });
-       get("/api/donations/nonAnonymous/:charityId","application/json", ((request, response) -> {//get anonymous donation info
+       get("/api/donations/nonAnonymous/:charityId","application/json", ((request, response) -> {//get nonanonymous donation info
            int charityId= Integer.parseInt((request.params("charityId")));
            return gson.toJson(Donation.getAllNonAnonymousDonorsForACharity(charityId));
        }));
@@ -214,19 +225,19 @@ public class App {
             return gson.toJson(admin);
         }));
         get("/api/admin/getallcharites/" ,"application/json",(request,response)->{//get all charities
-            if(Admin.getAllCharities().size()>0){
-            return gson.toJson(Admin.getAllCharities());}
+            if(Admin.admin_getAllCharities().size()>0){
+            return gson.toJson(Admin.admin_getAllCharities());}
             return "{\"message\":\"I'm sorry, but no charities are currently listed in the database.\"}";
         });
         get("api/admin/findbycharityid/:id", "application/json",(request,response)->{//get charity by id
             int id= Integer.parseInt((request.params("id")));
 
-            return gson.toJson(Admin.findCharityById(id));
+            return gson.toJson(Admin.admin_findCharityById(id));
 
         });
         put("/api/admin/approve/:charityId", "application/json",((request, response) -> {//update approval
             int id= Integer.parseInt((request.params("charityId")));
-            Admin.findCharityById(id).approveCharity();
+            Admin.admin_findCharityById(id).approveCharity();
             return gson.toJson(Admin.getAllApprove());
         }));
         get("/api/admin/getallapprove/", "application/json",((request, response) -> {
@@ -234,15 +245,17 @@ public class App {
 
 
         }));
-        delete("/api/deletebyid/:id","application/json",((request, response) -> {
+        delete("/api/deleteCharityOrganizationByid/:id","application/json",((request, response) -> {
             int id= Integer.parseInt((request.params("id")));
-            Admin.deleteById(id);
-            return gson.toJson(Admin.getAllCharities());
+            Admin.deleteAdminById(id);
+            Admin.admin_delete_charity(id);
+            Admin.delete_user_charity(id);
+            return gson.toJson(Admin.admin_getAllCharities());
         }));
 
         delete("/api/admin/deleteAll/", "application/json",((request, response) -> {
             Admin.clearAll();
-            return gson.toJson(Admin.getAllCharities());
+            return gson.toJson(Admin.admin_getAllCharities());
         }));
 
 
