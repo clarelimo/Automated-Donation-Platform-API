@@ -3,6 +3,7 @@ package models;
 import dao.DB;
 import dao.DatabaseRule;
 import dao.Sql2oCharityDao;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,6 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -22,7 +22,7 @@ class DonationTest {
     private static Sql2oCharityDao charityDao;
     @BeforeAll
     public static void beforeAll(){ //access database
-        DB.sql2o= new Sql2o("jdbc:postgresql://localhost:5432/donation_platform_test","moringa","climo");
+        DB.sql2o= new Sql2o("jdbc:postgresql://localhost:5432/donation_platform_test","softwaredev","1234");
     }
 
     @BeforeEach
@@ -75,21 +75,15 @@ class DonationTest {
        testDonation2.save();
        assertEquals(Donation.findDonationByNonAnonymity().size(),1);
     }
-    @Test
-    void instanceOfAllCharityOrganizations(){
-        String description = "To improve the life  opportunities of youth aged 10-24 through strategic empowerment for sustainable development";
-        Charity charity = new Charity(description, "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/586357/GD2.pdf","https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60",1,1);
-        charityDao.add(charity);
-        assertEquals(testDonation.getAllCharities().size(),1);
-    }
+
 
 
    @Test
     public void getAllNonAnonymousDonorsForACharity() {
         Charity charity = setupCharity();
-        testDonation= new Donation(1,charity.getId(),false, "monthly", new Timestamp(new Date().getTime()),"stripe");
+        testDonation= new Donation(1,charity.getId(),true, "monthly", new Timestamp(new Date().getTime()),"stripe");
         testDonation.save();
-        testDonation= new Donation(1,charity.getId(),false, "monthly", new Timestamp(new Date().getTime()),"stripe");
+        testDonation= new Donation(1,charity.getId(),true, "monthly", new Timestamp(new Date().getTime()),"stripe");
         testDonation.save();
 
         assertEquals(2,Donation.getAllNonAnonymousDonorsForACharity(charity.getId()).size());

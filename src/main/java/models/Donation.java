@@ -118,7 +118,7 @@ public class Donation {
         try (Connection con = DB.sql2o.open()) {
             return con.createQuery("SELECT * FROM donors WHERE charityId = :charityId AND anonymity = :anonymity")
                     .addParameter("charityId", charityId)
-                    .addParameter("anonymity", false)
+                    .addParameter("anonymity", true)
                     .executeAndFetch(Donation.class);
         }
     }
@@ -151,13 +151,7 @@ public class Donation {
         }
 
     }
-    public List<Charity> getAllCharities(){
-        try(Connection con= DB.sql2o.open()){
-            String getallCharities = "Select * from charities";
-          return   con.createQuery(getallCharities).executeAndFetch(Charity.class);
-        }
 
-    }
     public Charity getCharityById(int id){
         try(Connection con= DB.sql2o.open()){
             String getCharityById = "Select * from charities where id=:id";

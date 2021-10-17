@@ -7,7 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sql2o.Connection;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 
 public class Sql2oUsersDaoTest {
     private static Sql2oUsersDao usersDao;
