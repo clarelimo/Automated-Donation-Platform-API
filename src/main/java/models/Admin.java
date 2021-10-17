@@ -74,7 +74,7 @@ public class Admin {
     public  void approveCharity(){
         try(Connection con= DB.sql2o.open()){
             String approve ="UPDATE admin SET approval=:approval WHERE id=:id";
-            con.createQuery(approve).addParameter("approval",true).addParameter("id", this.id).executeUpdate();
+            con.createQuery(approve).addParameter("approval",true).addParameter("id", this.charityid).executeUpdate();
             this.approval=true;
         }catch (Sql2oException err){
             System.out.println("Error:::: "+ err);

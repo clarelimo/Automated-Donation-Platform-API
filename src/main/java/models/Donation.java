@@ -118,7 +118,7 @@ public class Donation {
         try (Connection con = DB.sql2o.open()) {
             return con.createQuery("SELECT * FROM donors WHERE charityId = :charityId AND anonymity = :anonymity")
                     .addParameter("charityId", charityId)
-                    .addParameter("anonymity", false)
+                    .addParameter("anonymity", true)
                     .executeAndFetch(Donation.class);
         }
     }
