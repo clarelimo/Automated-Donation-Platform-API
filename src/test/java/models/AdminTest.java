@@ -17,7 +17,7 @@ class AdminTest {
     private static Connection conn;
     @BeforeAll
     public static void beforeAll(){ //access database
-        DB.sql2o= new Sql2o("jdbc:postgresql://localhost:5432/donation_platform_test","softwaredev","1234");
+        DB.sql2o= new Sql2o("jdbc:postgresql://localhost:5432/donation_platform_test","moringa","climo");
         charityDao = new Sql2oCharityDao(DatabaseRule.sql2o);
         usersDao = new Sql2oUsersDao(DatabaseRule.sql2o);
         conn = DatabaseRule.sql2o.open();

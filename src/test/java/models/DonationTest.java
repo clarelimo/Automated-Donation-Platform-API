@@ -21,7 +21,7 @@ class DonationTest {
     private static Sql2oCharityDao charityDao;
     @BeforeAll
     public static void beforeAll(){ //access database
-        DB.sql2o= new Sql2o("jdbc:postgresql://localhost:5432/donation_platform_test","softwaredev","1234");
+        DB.sql2o= new Sql2o("jdbc:postgresql://localhost:5432/donation_platform_test","moringa","climo");
     }
 
     @BeforeEach

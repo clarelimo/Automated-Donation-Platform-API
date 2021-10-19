@@ -18,6 +18,14 @@ public class Charity {
         this.donorId = donorId;
     }
 
+
+    public Charity(String description, String trustDeed, String image, int userId) {
+        this.description = description;
+        this.trustDeed = trustDeed;
+        this.image = image;
+        this.userId = userId;
+    }
+
     public int getId() {
         return id;
     }

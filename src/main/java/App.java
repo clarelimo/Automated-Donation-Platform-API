@@ -138,6 +138,22 @@ public class App {
             }
         });
 
+        //get all beneficiaries for a charity
+        get("api/beneficiaries/:charityId", "application/json", (req, res) -> { //accept a request in format JSON from an app
+            res.type("application/json");
+            int charityId = Integer.parseInt(req.params("charityId"));
+            Charity charityToFind = charityDao.findById(charityId);
+            if (charityToFind == null){
+                throw new ApiException(404, String.format("No Charity with the id: \"%s\" exists", req.params("charityId")));
+            }
+            else if (beneficiaryDao.getAllBeneficiariesForACharity(charityId).size()==0){
+                return "{\"message\":\"I'm sorry, but no beneficiaries are listed for this charity.\"}";
+            }
+            else {
+                return gson.toJson(beneficiaryDao.getAllBeneficiariesForACharity(charityId));
+            }
+        });
+
         //create charity
         post("api/charity/:donorId/:userId/new", "application/json", (req, res) -> {
             Charity charity = gson.fromJson(req.body(), Charity.class);
@@ -149,6 +165,18 @@ public class App {
             res.status(201);
             return gson.toJson(charity);
         });
+
+        //create charity
+        post("api/charity/:userId", "application/json", (req, res) -> {
+            Charity charity = gson.fromJson(req.body(), Charity.class);
+
+            int userId = Integer.parseInt(req.params("userId"));
+            charity.setUserId(userId);
+            charityDao.add(charity);
+            res.status(201);
+            return gson.toJson(charity);
+        });
+
 
         //get all charities
         get("api/charities", "application/json", (req, res) -> { //accept a request in format JSON from an app
