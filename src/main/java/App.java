@@ -90,7 +90,20 @@ public class App {
         });
 
         //get user by category
+//delete a user
+        delete("api/users/:id", "application/json", (req, res) -> {
+            int id = Integer.parseInt(req.params("id"));
+            usersDao.deleteById(id);
+            res.status(201);
+            return  "{\"message\":\"user successfully deleted.\"}";
+        });
 
+//delete users
+        delete("api/users", "application/json", (req, res) -> {
+            usersDao.clearAll();
+            res.status(201);
+            return  "{\"message\":\"Successfully deleted all users.\"}";
+        });
 
         //create beneficiary
         post("api/beneficiary/:charityId/new", "application/json", (req, res) -> {
@@ -170,6 +183,43 @@ public class App {
             res.status(201);
             return gson.toJson(charity);
         });
+        //delete charity
+        delete("api/charity/:id", "application/json", (req, res) -> {
+            int charityId = Integer.parseInt(req.params("id"));
+            charityDao.deleteById(charityId);
+            res.status(201);
+            return  "{\"message\":\"Successfully deleted .\"}";
+        });
+
+//delete all charity
+        delete("api/charities", "application/json", (req, res) -> {
+            Charity charity = gson.fromJson(req.body(), Charity.class);
+            charityDao.clearAll();
+            res.status(201);
+            return  "{\"message\":\"Successfully deleted all charities .\"}";
+        });
+
+//delete beneficiary
+        delete("api/beneficiary/:id", "application/json", (req, res) -> {
+            int charityId = Integer.parseInt(req.params("id"));
+            beneficiaryDao.deleteById(charityId);
+            res.status(201);
+            return  "{\"message\":\"Successfully deleted .\"}";
+        });
+
+//delete beneficiary
+        delete("api/beneficiaries", "application/json", (req, res) -> {
+            beneficiaryDao.clearAll();
+            res.status(201);
+            return  "{\"message\":\"Successfully deleted all beneficiaries.\"}";
+        });
+
+
+
+
+
+
+
 
         after((req, res) ->{
             res.type("application/json");
