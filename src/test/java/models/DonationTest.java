@@ -86,6 +86,7 @@ class DonationTest {
         testDonation.save();
 
         assertEquals(2,Donation.getAllNonAnonymousDonorsForACharity(charity.getId()).size());
+        assertEquals(Donation.getAllDonationsPerCharity(charity.getId()).size(), 2);
     }
 
     public Charity setupCharity(){

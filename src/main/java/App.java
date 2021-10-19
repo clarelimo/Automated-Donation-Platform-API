@@ -207,6 +207,13 @@ public class App {
            int charityId= Integer.parseInt((request.params("charityId")));
            return gson.toJson(Donation.getAllNonAnonymousDonorsForACharity(charityId));
        }));
+       get("api/donations/charity/:charityId", "application/json", ((request, response) -> {//get all donation per charity
+           int charityId= Integer.parseInt((request.params("charityId")));
+           return gson.toJson(Donation.getAllDonationsPerCharity(charityId));
+       }));
+       get("api/donations/charities/all", "application/json", (request, response)->{
+           return gson.toJson(Donation.user_getAllCharities());
+       });
        delete("api/donations/deleteby/:id","application/json", ((request, response) -> {//delete donations by id
            int id= Integer.parseInt((request.params("id")));
            Donation.deleteById(id);

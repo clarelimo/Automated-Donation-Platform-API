@@ -122,7 +122,14 @@ public class Donation {
                     .executeAndFetch(Donation.class);
         }
     }
+    public  static List<Donation> getAllDonationsPerCharity(int charityid){
+        try (Connection con = DB.sql2o.open()){
 
+            return con.createQuery("SELECT * FROM donors WHERE charityid=:charityid")
+                    .addParameter("charityid", charityid)
+                    .executeAndFetch(Donation.class);
+        }
+    }
 
     public static Donation findDonorById(int id){
         try(Connection con= DB.sql2o.open()) {
@@ -163,6 +170,13 @@ public class Donation {
         try(Connection con= DB.sql2o.open()){
             String delete = "DELETE FROM donors *";
             con.createQuery(delete).executeUpdate();
+        }
+    }
+    public static List<User> user_getAllCharities(){
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery("select * from users where categories=:categories")
+                    .addParameter("categories", "Charity")
+                    .executeAndFetch(User.class);
         }
     }
 
