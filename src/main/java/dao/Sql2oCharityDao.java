@@ -57,6 +57,15 @@ public class Sql2oCharityDao implements CharityDao{
     }
 
     @Override
+    public Charity findBCharityByUserId(int userId) {
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM charities WHERE userId = :userId")
+                    .addParameter("userId", userId)
+                    .executeAndFetchFirst(Charity.class);
+        }
+    }
+
+    @Override
     public void update(int id,String description, String trustDeed, String image) {
         String sql = "UPDATE charities SET (description,trustdeed,image) = (:description,:trustDeed,:image)";
         try (Connection con = sql2o.open()) {

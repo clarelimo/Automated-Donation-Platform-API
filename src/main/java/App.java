@@ -89,8 +89,7 @@ public class App {
             return gson.toJson(userToFind);
         });
 
-        //get user by category
-//delete a user
+        //delete a user
         delete("api/users/:id", "application/json", (req, res) -> {
             int id = Integer.parseInt(req.params("id"));
             usersDao.deleteById(id);
@@ -98,7 +97,7 @@ public class App {
             return  "{\"message\":\"user successfully deleted.\"}";
         });
 
-//delete users
+       //delete users
         delete("api/users", "application/json", (req, res) -> {
             usersDao.clearAll();
             res.status(201);
@@ -184,6 +183,17 @@ public class App {
             return gson.toJson(charityDao.getAll());
         });
 
+        //get a charity by userId
+        get("api/charities/:userId", "application/json", (req, res) -> { //accept a request in format JSON from an app
+            res.type("application/json");
+            int userId = Integer.parseInt(req.params("userId"));
+            Charity charityToFind = charityDao.findBCharityByUserId(userId);
+            if (charityToFind == null){
+                throw new ApiException(404, String.format("No charity with the userId: \"%s\" exists", req.params("userId")));
+            }
+            return gson.toJson(charityToFind);
+        });
+
         //get all non anonymous donors for a charity
         get("api/donors/:charityId", "application/json", (req, res) -> { //accept a request in format JSON from an app
             res.type("application/json");
@@ -201,7 +211,6 @@ public class App {
             }
         });
 
-
         //update charity
         put("api/charity/:id", "application/json", (req, res) -> {
             Charity charity = gson.fromJson(req.body(), Charity.class);
@@ -211,6 +220,7 @@ public class App {
             res.status(201);
             return gson.toJson(charity);
         });
+
         //delete charity
         delete("api/charity/:id", "application/json", (req, res) -> {
             int charityId = Integer.parseInt(req.params("id"));
@@ -219,7 +229,7 @@ public class App {
             return  "{\"message\":\"Successfully deleted .\"}";
         });
 
-//delete all charity
+       //delete all charity
         delete("api/charities", "application/json", (req, res) -> {
             Charity charity = gson.fromJson(req.body(), Charity.class);
             charityDao.clearAll();
@@ -227,7 +237,7 @@ public class App {
             return  "{\"message\":\"Successfully deleted all charities .\"}";
         });
 
-//delete beneficiary
+       //delete beneficiary
         delete("api/beneficiary/:id", "application/json", (req, res) -> {
             int charityId = Integer.parseInt(req.params("id"));
             beneficiaryDao.deleteById(charityId);
@@ -241,13 +251,6 @@ public class App {
             res.status(201);
             return  "{\"message\":\"Successfully deleted all beneficiaries.\"}";
         });
-
-
-
-
-
-
-
 
         after((req, res) ->{
             res.type("application/json");
@@ -297,11 +300,12 @@ public class App {
            Donation.deleteById(id);
            return gson.toJson(Donation.getDonors());
        }));
+
        delete("api/donations/clearall", "application/json", ((request, response) -> {//delete all donations
            Donation.clearAll();
            return gson.toJson(Donation.getDonors());
        }));
-       //end of donation............
+
         //start of admin......
         post("api/admin/newrequest", "application/json",((request, response) -> { //new requests
             Admin admin = gson.fromJson(request.body(), Admin.class);

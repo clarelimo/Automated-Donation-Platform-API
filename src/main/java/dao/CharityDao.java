@@ -13,6 +13,7 @@ public interface CharityDao {
     List<Charity> getAll();
     List<Charity> getAllCharitiesForDonor(int donorId);
     Charity findById(int id);
+    Charity findBCharityByUserId(int userId);
 
     //update
     void update(int id,String description, String trustDeed, String image);
