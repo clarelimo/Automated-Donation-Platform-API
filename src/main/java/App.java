@@ -320,30 +320,40 @@ public class App {
             return gson.toJson(Admin.admin_findCharityById(id));
 
         });
+        get("api/admin/approvedCharity/:charityId", "application/json", (request, response) -> {
+            int id= Integer.parseInt((request.params("charityId")));
+            Admin approved = Admin.getApprovedByCharityId(id);
+            if(approved!=null){
+                return gson.toJson(approved);
+            }else
+            throw new ApiException(404, String.format(" The charity at id: \"%s\"  has not been approved", request.params("id")));
+        });
         put("api/admin/approve/:charityId", "application/json",((request, response) -> {//update approval
             int id= Integer.parseInt((request.params("charityId")));
             Admin.admin_findCharityById(id).approveCharity();
             return gson.toJson(Admin.getAllApprove());
         }));
-        get("api/admin/getallapprove", "application/json",((request, response) -> {
+        get("api/admin/getAllNotApproved", "application/json", ((request, response) -> {//get all not approved charities
+            return gson.toJson(Admin.getAllNotApprove());
+        }));
+        get("api/admin/getallapprove", "application/json",((request, response) -> {// get all approved charities
             return gson.toJson(Admin.getAllApprove());
 
 
         }));
-        delete("api/deleteCharityOrganizationByid/:id","application/json",((request, response) -> {
+        delete("api/deleteCharityOrganizationByid/:id","application/json",((request, response) -> {//delete charity organization by id
             int id= Integer.parseInt((request.params("id")));
             Admin.deleteAdminById(id);
             Admin.admin_delete_charity(id);
             Admin.delete_user_charity(id);
             return gson.toJson(Admin.admin_getAllCharities());
         }));
+        
 
-        delete("api/admin/deleteAll", "application/json",((request, response) -> {
+        delete("api/admin/deleteAll", "application/json",((request, response) -> {// delete all charities by id
             Admin.clearAll();
             return gson.toJson(Admin.admin_getAllCharities());
         }));
-
-
 
         //FILTERS
         after((req, res) ->{

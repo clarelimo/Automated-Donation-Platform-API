@@ -116,6 +116,7 @@
                     <!-- Change this to YOUR application name! -->
                     <appName>automateddonationplatform</appName>
                     <processTypes>
+                        mongoose.connect(
                         <web>java -jar target/my-app-1.0-jar-with-dependencies.jar</web>
                     </processTypes>
                 </configuration>

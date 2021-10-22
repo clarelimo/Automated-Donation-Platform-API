@@ -90,6 +90,12 @@ public class Admin {
             System.out.println("Error:::: "+ err);
         }
     }
+    public static  List<Admin> getAllNotApprove(){
+        try(Connection con = DB.sql2o.open()){
+            String notApproved ="SELECT * FROM admin WHERE approval=:approval";
+            return con.createQuery(notApproved).addParameter("approval", false).executeAndFetch(Admin.class);
+        }
+    }
     public static List<Admin> getAllApprove(){
         try(Connection con= DB.sql2o.open()){
             String approved = "SELECT * FROM admin WHERE approval=:approval";
@@ -107,6 +113,13 @@ public class Admin {
         try(Connection con= DB.sql2o.open()){
             String getCharityById = "Select * from charities where id=:id";
             return con.createQuery(getCharityById).addParameter("id",id).executeAndFetchFirst(Charity.class);
+        }
+    }
+    public static Admin getApprovedByCharityId(int charityId){// check for approve charity by id
+        try(Connection con = DB.sql2o.open()){
+            String charityByid= "SELECT * FROM admin WHERE approval=:approval AND charityid=:charityid ";
+            return con.createQuery(charityByid).addParameter("approval", true).addParameter("charityid", charityId)
+                    .executeAndFetchFirst(Admin.class);
         }
     }
     public static void delete_user_charity(int id){

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="dao.Sql2oBeneficiaryDaoTest" time="0.539" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="dao.Sql2oBeneficiaryDaoTest" time="0.588" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.11+9-Ubuntu-0ubuntu2.20.04"/>
@@ -32,7 +32,7 @@
     <property name="java.class.version" value="55.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="5.11.0-37-generic"/>
+    <property name="os.version" value="5.11.0-38-generic"/>
     <property name="library.jansi.path" value="/usr/share/maven/lib/jansi-native"/>
     <property name="user.home" value="/home/softwaredev"/>
     <property name="user.timezone" value="Africa/Nairobi"/>
@@ -60,9 +60,9 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="dao.Sql2oBeneficiaryDaoTest" name="getAll" time="0.11"/>
-  <testcase classname="dao.Sql2oBeneficiaryDaoTest" name="getAllBeneficiariesForACharity" time="0.122"/>
-  <testcase classname="dao.Sql2oBeneficiaryDaoTest" name="findById" time="0.067"/>
-  <testcase classname="dao.Sql2oBeneficiaryDaoTest" name="clearAll" time="0.121"/>
-  <testcase classname="dao.Sql2oBeneficiaryDaoTest" name="deleteById" time="0.119"/>
+  <testcase classname="dao.Sql2oBeneficiaryDaoTest" name="getAll" time="0.127"/>
+  <testcase classname="dao.Sql2oBeneficiaryDaoTest" name="getAllBeneficiariesForACharity" time="0.147"/>
+  <testcase classname="dao.Sql2oBeneficiaryDaoTest" name="findById" time="0.073"/>
+  <testcase classname="dao.Sql2oBeneficiaryDaoTest" name="clearAll" time="0.138"/>
+  <testcase classname="dao.Sql2oBeneficiaryDaoTest" name="deleteById" time="0.103"/>
 </testsuite>
