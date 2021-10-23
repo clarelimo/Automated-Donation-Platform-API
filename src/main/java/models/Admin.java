@@ -122,9 +122,9 @@ public class Admin {
                     .executeAndFetchFirst(Admin.class);
         }
     }
-    public static void delete_user_charity(int id){
+    public static void delete_admin_charity(int id){
           try (Connection con= DB.sql2o.open()){
-              String deleteCharity= "DELETE FROM users * WHERE id=:id";
+              String deleteCharity= "DELETE FROM admin * WHERE charityid=:id";
               con.createQuery(deleteCharity).addParameter("id",id).executeUpdate();
           }
     }

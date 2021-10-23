@@ -347,9 +347,7 @@ public class App {
         }));
         delete("api/deleteCharityOrganizationByid/:id","application/json",((request, response) -> {//delete charity organization by id
             int id= Integer.parseInt((request.params("id")));
-            Admin.deleteAdminById(id);
-            Admin.admin_delete_charity(id);
-            Admin.delete_user_charity(id);
+            Admin.delete_admin_charity(id);
             return gson.toJson(Admin.admin_getAllCharities());
         }));
         
