@@ -332,7 +332,7 @@ public class App {
             }else
             throw new ApiException(404, String.format(" The charity at id: \"%s\"  has not been approved", request.params("id")));
         });
-        put("api/admin/approve/:charityId", "application/json",((request, response) -> {//update approval
+        patch("api/admin/approve/:charityId", "application/json",((request, response) -> {//update approval
             int id= Integer.parseInt((request.params("charityId")));
             Admin.admin_findCharityById(id).approveCharity();
             return gson.toJson(Admin.getAllApprove());
