@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="dao.Sql2oUsersDaoTest" time="0.458" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="dao.Sql2oUsersDaoTest" time="0.477" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.11+9-Ubuntu-0ubuntu2.20.04"/>
@@ -60,10 +60,10 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="dao.Sql2oUsersDaoTest" name="getAll" time="0.066"/>
-  <testcase classname="dao.Sql2oUsersDaoTest" name="getUserByCategory" time="0.063"/>
-  <testcase classname="dao.Sql2oUsersDaoTest" name="findById" time="0.068"/>
-  <testcase classname="dao.Sql2oUsersDaoTest" name="clearAll" time="0.09"/>
-  <testcase classname="dao.Sql2oUsersDaoTest" name="findByEmail" time="0.061"/>
-  <testcase classname="dao.Sql2oUsersDaoTest" name="deleteById" time="0.11"/>
+  <testcase classname="dao.Sql2oUsersDaoTest" name="getAll" time="0.071"/>
+  <testcase classname="dao.Sql2oUsersDaoTest" name="getUserByCategory" time="0.084"/>
+  <testcase classname="dao.Sql2oUsersDaoTest" name="findById" time="0.073"/>
+  <testcase classname="dao.Sql2oUsersDaoTest" name="clearAll" time="0.091"/>
+  <testcase classname="dao.Sql2oUsersDaoTest" name="findByEmail" time="0.062"/>
+  <testcase classname="dao.Sql2oUsersDaoTest" name="deleteById" time="0.096"/>
 </testsuite>
