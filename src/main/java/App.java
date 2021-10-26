@@ -193,7 +193,16 @@ public class App {
             }
             return gson.toJson(charityToFind);
         });
-
+//get a charity by id
+        get("api/charities/:id", "application/json", (req, res) -> { //accept a request in format JSON from an app
+            res.type("application/json");
+            int userId = Integer.parseInt(req.params("id"));
+            Charity charityToFind = charityDao.findById(userId);
+            if (charityToFind == null){
+                throw new ApiException(404, String.format("No charity with the id: \"%s\" exists", req.params("userId")));
+            }
+            return gson.toJson(charityToFind);
+        });
         //get all non anonymous donors for a charity
         get("api/donors/:charityId", "application/json", (req, res) -> { //accept a request in format JSON from an app
             res.type("application/json");
